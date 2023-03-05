@@ -14,11 +14,11 @@ def arg_parser():
 
     parser.add_argument('-a', '--action', type=str, required=True)
     parser.add_argument('-m', '--model', type=str, required=True)
-    parser.add_argument('-n', '--name', type=str, required=True)
+    parser.add_argument('-n', '--name', type=str)
 
     args = vars(parser.parse_args())  # object -> dict
-    command_pars = args.get('action')
-    column_pars = args.get('model')
+    command_pars = args.get('action').lower()
+    column_pars = args.get('model').lower()
     value_pars = args.get('name')
     return {"command": command_pars,
             "column": column_pars,

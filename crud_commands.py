@@ -1,5 +1,16 @@
-def create_action():
-    return f"create_action "
+from seeds.seeds import create
+
+
+def create_action(model: str, value: str | int | float):
+    create_func = create()
+
+    for col in create_func.keys():
+        if model in col:
+            result = create_func.get(model)(value)
+
+            return result
+
+    return f"Wrong model..."
 
 
 def show_all_action():
