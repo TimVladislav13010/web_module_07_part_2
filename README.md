@@ -21,3 +21,11 @@
 **Створити групу**
 
     py main.py -a create -m Group -n 'AD-101'  
+
+**Оновити вчителя**
+
+    py main.py -a update -m Teacher -n 'Boris Jonson' -i 1
+
+**Оновити групу**
+
+    py main.py -a update -m Group -n 'AD-101' -i 1
