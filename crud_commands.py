@@ -1,4 +1,4 @@
-from seeds.seeds import create
+from seeds.seeds import create, update
 
 
 def create_action(model: str, value: str | int | float):
@@ -17,8 +17,16 @@ def show_all_action():
     return f"show_all_action "
 
 
-def update_action():
-    return f"update_action "
+def update_action(model, value, id_):
+    update_func = update()
+
+    for col in update_func.keys():
+        if model in col:
+            result = update_func.get(model)(id_, value)
+
+            return result
+
+    return f"Wrong model..."
 
 
 def remove_action():

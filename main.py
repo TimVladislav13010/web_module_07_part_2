@@ -11,6 +11,8 @@ def handler_commands():
             return commands.get(command)(arguments.get("column"), arguments.get("value"))
         elif arguments.get("command") in command and len(arguments) == 2:
             return commands.get(command)(arguments.get("column"))
+        elif arguments.get("command") in command and len(arguments) == 4:
+            return commands.get(command)(arguments.get("column"), arguments.get("value"), arguments.get("id"))
     return f"Wrong command."
 
 
