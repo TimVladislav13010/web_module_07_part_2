@@ -1,13 +1,9 @@
-from datetime import datetime
-
 from app_parser import arg_parser
 from src.models import Discipline, Group, Grade, Student, Teacher
 from src.db import session
 
 
 def main():
-
-    actions = ["create", "list", "update", "remove"]
 
     models_create = {
         "Group": create_group,
@@ -25,6 +21,22 @@ def main():
         "Grade": update_grade
     }
 
+    models_remove = {
+        "Group": remove_group,
+        "Teacher": remove_teacher,
+        "Student": remove_student,
+        "Discipline": remove_discipline,
+        "Grade": remove_grade
+    }
+
+    models_show = {
+        "Group": show_group,
+        "Teacher": show_teacher,
+        "Student": show_student,
+        "Discipline": show_discipline,
+        "Grade": show_grade
+    }
+
     arg = arg_parser()
 
     if arg.action in "create":
@@ -35,6 +47,16 @@ def main():
     elif arg.action in "update":
         if arg.model in models_update.keys():
             result = models_update.get(arg.model)(arg)
+            return result
+
+    elif arg.action in "remove":
+        if arg.model in models_remove.keys():
+            result = models_remove.get(arg.model)(arg)
+            return result
+
+    elif arg.action in "list":
+        if arg.model in models_show.keys():
+            result = models_show.get(arg.model)()
             return result
 
 
@@ -137,6 +159,96 @@ def update_grade(args):
     session.commit()
 
     return f"Grade {args.grade_id}, update {args.grade} and date_of {args.date_of}."
+
+
+def remove_group(args):
+    try:
+        group = session.query(Group).get(args.group_id)
+    except Exception as er:
+        return f"Failed: {er}"
+
+    session.delete(group)
+    session.commit()
+
+    return f"Group {args.group_id} remove."
+
+
+def remove_teacher(args):
+    try:
+        teacher = session.query(Teacher).get(args.teacher_id)
+    except Exception as er:
+        return f"Failed: {er}"
+
+    session.delete(teacher)
+    session.commit()
+
+    return f"Teacher {args.teacher_id} remove."
+
+
+def remove_student(args):
+    try:
+        student = session.query(Student).get(args.student_id)
+    except Exception as er:
+        return f"Failed: {er}"
+
+    session.delete(student)
+    session.commit()
+
+    return f"Student {args.student_id} remove."
+
+
+def remove_discipline(args):
+    try:
+        discipline = session.query(Discipline).get(args.discipline_id)
+    except Exception as er:
+        return f"Failed: {er}"
+
+    session.delete(discipline)
+    session.commit()
+
+    return f"Discipline {args.discipline_id} remove."
+
+
+def remove_grade(args):
+    try:
+        grade = session.query(Grade).get(args.grade_id)
+    except Exception as er:
+        return f"Failed: {er}"
+
+    session.delete(grade)
+    session.commit()
+
+    return f"Grade {args.grade_id} remove."
+
+
+def show_group():
+    groups = session.query(Group).all()
+    result = [x.name for x in groups]
+    return result
+
+
+def show_teacher():
+    teachers = session.query(Teacher).all()
+    result = [x.fullname for x in teachers]
+    return result
+
+
+def show_student():
+    students = session.query(Student).all()
+    result = [x.fullname for x in students]
+    return result
+
+
+def show_discipline():
+    disciplines = session.query(Discipline).all()
+    result = [x.name for x in disciplines]
+    return result
+
+
+def show_grade():
+    grades = session.query(Grade).all()
+    result = [x.grade for x in grades]
+    return result
 
 
 if __name__ == "__main__":

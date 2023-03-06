@@ -20,6 +20,7 @@ def arg_parser():
     parser.add_argument('-ti', '--teacher_id', type=int, default=None)
     parser.add_argument('-di', '--discipline_id', type=int, default=None)
     parser.add_argument('-si', '--student_id', type=int, default=None)
+    parser.add_argument('-gri', '--grade_id', type=int, default=None)
     parser.add_argument('-fn', '--full_name', type=str, default=None)
     parser.add_argument('-g', '--grade', type=int, default=None)
     parser.add_argument('-d', '--date_of', type=str, default=None)

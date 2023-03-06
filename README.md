@@ -22,6 +22,19 @@
 
     py main.py -a create -m Group -n 'AD-101'  
 
+**Створити студента**
+
+    py main.py -a create -m Student -n 'Name' -gi 1
+
+**Створити дисципліну**
+
+    py main.py -a create -m Discipline -n 'Name' -ti 1
+
+**Створити оцінку**
+
+    py main.py -a create -m Grade -g 10 -d 01.01.1970 -si 1 -di 1
+
+
 **Оновити вчителя**
 
     py main.py -a update -m Teacher -n 'Boris Jonson' -i 1
@@ -29,3 +42,5 @@
 **Оновити групу**
 
     py main.py -a update -m Group -n 'AD-101' -i 1
+
+...
